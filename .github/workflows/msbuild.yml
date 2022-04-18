@@ -43,7 +43,10 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run:  |
         echo {{env.GITHUB_WORKSPACE}}
-        cmake -e mkdir {{env.GITHUB_WORKSPACE}}
         pip install wheel cmake-build-extension
         python setup.py bdist_wheel 
+        
+    - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl        
       
