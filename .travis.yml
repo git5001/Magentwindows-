@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.8"
+os:
+- windows 
+before_install:
+- choco install visualstudio2019buildtools --package-parameters "--includeRecommended --includeOptional"
+- choco install visualstudio2019-workload-vctools
+ 
+install:
+- pip install  cmake-build-extension  wheel
+
+script:
+- cmake --version
