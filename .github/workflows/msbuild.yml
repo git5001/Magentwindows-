@@ -38,7 +38,7 @@ jobs:
 
         build:
 
-build-src:
+ build-src:
     runs-on: windows-latest
     needs:
     - build-wheels
