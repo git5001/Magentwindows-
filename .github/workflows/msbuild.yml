@@ -37,7 +37,6 @@ jobs:
         CIBW_BUILD_VERBOSITY: 1
 
         build:
-    runs-on: windows-latest
 
 build-src:
     runs-on: windows-latest
