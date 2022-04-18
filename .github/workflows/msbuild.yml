@@ -39,15 +39,12 @@ jobs:
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run:  |
-        echo {{env.GITHUB_WORKSPACE}}
         pip install wheel cmake-build-extension
         # python setup.py bdist_wheel 
         pip wheel .  --no-deps -w wheelhouse/ 
         
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         path: ./wheelhouse/*.whl        
 
