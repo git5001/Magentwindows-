@@ -19,22 +19,40 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    runs-on: windows-latest
+ build-wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+        - os: windows-latest
+          python: 38
 
     steps:
     - uses: actions/checkout@v3
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.3.1
+      env:
+        CIBW_BUILD: cp${{ matrix.python }}-${{ matrix.platform }}
+        CIBW_ARCHS: all
+        CIBW_BUILD_VERBOSITY: 1
+
+        build:
+    runs-on: windows-latest
+
+build-src:
+    runs-on: windows-latest
+    needs:
+    - build-wheels
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-
-  #  - name: Restore NuGet packages
- #     working-directory: ${{env.GITHUB_WORKSPACE}}
- #     run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: cmake --build ${{github.workspace}}/build --config Release
+      run:  |
+        echo {{env.GITHUB_WORKSPACE}}
+        pip install wheel cmake-build-extension
+        python setup.py bdist_wheel 
       
