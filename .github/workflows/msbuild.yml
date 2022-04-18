@@ -44,7 +44,8 @@ jobs:
       run:  |
         echo {{env.GITHUB_WORKSPACE}}
         pip install wheel cmake-build-extension
-        python setup.py bdist_wheel  -w wheelhouse/
+        # python setup.py bdist_wheel 
+        pip wheel .  --no-deps -w wheelhouse/ 
         
     - uses: actions/upload-artifact@v2
       with:
