@@ -29,6 +29,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.3.1
       env:
@@ -36,12 +37,6 @@ jobs:
         CIBW_ARCHS: all
         CIBW_BUILD_VERBOSITY: 1
 
-        build:
-
- build-src:
-    runs-on: windows-latest
-    needs:
-    - build-wheels
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
