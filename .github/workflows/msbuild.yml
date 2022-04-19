@@ -26,7 +26,7 @@ jobs:
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
         include:
         - os: windows-latest
-         # python: 38
+        python: 38
 
     steps:
     - uses: actions/checkout@v3
