@@ -10,11 +10,6 @@ env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
 
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-  BUILD_CONFIGURATION: Release
-
 permissions:
   contents: read
 
@@ -27,7 +22,6 @@ jobs:
         python-version: [ '3.10' ]
         include:
         - os: windows-latest
-#          python: 38
 
     steps:
     - uses: actions/checkout@v3
@@ -40,10 +34,6 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-      env:
-        CIBW_BUILD: cp${{ matrix.python }}-${{ matrix.platform }}
-        CIBW_ARCHS: all
-        CIBW_BUILD_VERBOSITY: 1      
 
     - name: Build wheel
       working-directory: ${{env.GITHUB_WORKSPACE}}
