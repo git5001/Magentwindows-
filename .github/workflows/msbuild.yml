@@ -39,10 +39,10 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
-      #env:
-      #  CIBW_BUILD: cp${{ matrix.python }}-${{ matrix.platform }}
-      #  CIBW_ARCHS: all
-      #  CIBW_BUILD_VERBOSITY: 1      
+      env:
+        CIBW_BUILD: cp${{ matrix.python }}-${{ matrix.platform }}
+        CIBW_ARCHS: all
+        CIBW_BUILD_VERBOSITY: 1      
 
     - name: Build wheel
       working-directory: ${{env.GITHUB_WORKSPACE}}
