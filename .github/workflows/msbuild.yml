@@ -20,13 +20,13 @@ permissions:
 
 jobs:
  build-wheels:
-    runs-on: ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
         include:
         - os: windows-latest
-        python: 38
+          python: 38
 
     steps:
     - uses: actions/checkout@v3
@@ -44,15 +44,15 @@ jobs:
         CIBW_ARCHS: all
         CIBW_BUILD_VERBOSITY: 1      
 
-    - name: Build wheel
+    - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run:  |
         pip install wheel cmake-build-extension
+        # python setup.py bdist_wheel 
         pip wheel .  --no-deps -w wheelhouse/ 
-   
-    - name: Store wheels
-      uses: actions/upload-artifact@v3
+        
+    - uses: actions/upload-artifact@v3
       with:
-        path: ./wheelhouse/*.whl      
+        path: ./wheelhouse/*.whl        
 
       
