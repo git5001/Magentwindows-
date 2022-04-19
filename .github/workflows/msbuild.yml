@@ -20,10 +20,11 @@ permissions:
 
 jobs:
  build-wheels:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.python-version }}
     strategy:
       matrix:
-        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+#        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+        python-version: [ '3.10' ]
         include:
         - os: windows-latest
           python: 38
@@ -44,13 +45,13 @@ jobs:
         CIBW_ARCHS: all
         CIBW_BUILD_VERBOSITY: 1      
 
-    - name: Build
+    - name: Build wheel
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run:  |
         pip install wheel cmake-build-extension
-        # python setup.py bdist_wheel 
         pip wheel .  --no-deps -w wheelhouse/ 
         
+                        
     - uses: actions/upload-artifact@v3
       with:
         path: ./wheelhouse/*.whl        
